@@ -2,4 +2,4 @@
 layout: default
 title: Home
 ---
-<h1>{{ page.description | downcase }}</h1>
+<h1>{{ "TEST" | downcase }}</h1>
