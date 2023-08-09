@@ -1,15 +1,22 @@
 @import "sidenav.css";
+@import "bars.css";
+
+* {
+    box-sizing: border-box;
+}
 
 body {
-    background-color: lightblue;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    background-color: lightgray;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
-  
-h1 {
-    color: white;
-    text-align: center;
+
+h1, h2, h3 {
+    color: darkred;
 }
-  
-p {
-    font-family: verdana;
-    font-size: 20px;
+
+div {
+    padding: 10px;
 }
