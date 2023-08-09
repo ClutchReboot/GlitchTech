@@ -1,5 +1,6 @@
 ---
 layout: default
 title: Home
+description: Welcome.
 ---
-<h1>{{ "Hello World!" | downcase }}</h1>
+<h3>{{ "Hello World!" | downcase }}</h3>

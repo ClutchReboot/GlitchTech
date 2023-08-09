@@ -1,6 +1,7 @@
 ---
 layout: default
 title: About
+description: This pages talks about the author.
 ---
 # About page
 
