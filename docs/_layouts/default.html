@@ -80,8 +80,10 @@
         </div>
       </div>
     </div>
-    <h1>{{ page.description }}</h1>
-    {% include navigation.html %}
-    {{ content }}
+    <div class="container">
+      <h1>{{ page.description }}</h1>
+      {% include navigation.html %}
+      {{ content }}
+    </div>
   </body>
 </html>
