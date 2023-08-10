@@ -1,9 +1,7 @@
 ---
 layout: default
 title: About
-description: This pages talks about the author.
+description: A little about Clutch Reboot.
 ---
-<h1>{{ page.title }}</h1>
-## {{ page.description }}
-
-This page tells you a little bit about me.
+I'm a Software Developer in the DevOps space.
+There will be more here in the future.
