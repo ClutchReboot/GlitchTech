@@ -1,7 +1,54 @@
-<div class="sidenav">
-  {% for item in site.data.navigation %}
-    <a href="/Hackthebox-WriteUps{{ item.link }}" {% if page.url == item.link %}style="color: red;"{% endif %}>
-      {{ item.name }}
-    </a>
-  {% endfor %}
+<div class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark">
+  <div class="container">
+    <a href="../" class="navbar-brand">Hackthebox-WriteUps</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown" data-bs-theme="light">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="themes">WriteUps</a>
+          <div class="dropdown-menu" aria-labelledby="themes">
+            <a class="dropdown-item" href="../default/">Default</a>
+            <div class="dropdown-divider"></div>
+            {% for item in site.data.htb-writeups %}
+              <a class="dropdown-item" href="/Hackthebox-WriteUps{{ item.link }}" >
+                {{ item.name }}
+              </a>
+            {% endfor %}
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-md-auto">
+        <li class="nav-item">
+          <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/thomaspark/bootswatch/"><i class="bi bi-github"></i><span class="d-lg-none ms-2">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          <a target="_blank" rel="noopener" class="nav-link" href="https://twitter.com/bootswatch"><i class="bi bi-twitter"></i><span class="d-lg-none ms-2">Twitter</span></a>
+        </li>
+        <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+          <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+          <hr class="d-lg-none my-2 text-white-50">
+        </li>
+        <li class="nav-item dropdown" data-bs-theme="light">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
+            <i class="bi bi-circle-half"></i>
+            <span class="d-lg-none ms-2">Toggle theme</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                <i class="bi bi-sun-fill"></i><span class="ms-2">Light</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="true">
+                <i class="bi bi-moon-stars-fill"></i><span class="ms-2">Dark</span>
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
