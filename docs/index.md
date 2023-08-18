@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Hackthebox WriteUps
-description: Collection of write ups for Hackthebox.
+title: WriteUps
+description: Collection of write ups written by Clutch Reboot.
 ---
 Later, there will be a table of contents here.
 
-![Test](/Hackthebox-WriteUps/assets/images/somethingAmazing.png)
+![Test](/WriteUps/assets/images/somethingAmazing.png)
