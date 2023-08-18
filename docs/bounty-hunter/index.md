@@ -3,7 +3,7 @@ layout: default
 title: Hackthebox | Bounty Hunter
 description: Collection of write ups for Hackthebox.
 ---
-# HTB BountyHunter
+# HTB | BountyHunter
 
 ### Enumeration
 As with most, if not all htb machines, we add bountyhunter.htb to the hosts file on the attacking machine.
