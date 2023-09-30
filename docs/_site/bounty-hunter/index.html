@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/WriteUps/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/WriteUps/assets/css/code_blocks.css">
+
+    <title>Hackthebox | Bounty Hunter</title>
+  </head>
+  <body>
+    <div class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark">
+  <div class="container">
+    <a href="../" class="navbar-brand">WriteUps</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown" data-bs-theme="light">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="themes">Hackthebox</a>
+          <div class="dropdown-menu" aria-labelledby="themes">
+            
+              <a class="dropdown-item" href="/WriteUps/bounty-hunter/" >
+                Bounty Hunter
+              </a>
+            
+              <a class="dropdown-item" href="/WriteUps/optimum/" >
+                Optimum
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-md-auto">
+        <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+          <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+          <hr class="d-lg-none my-2 text-white-50">
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <h1>Collection of write ups for Hackthebox.</h1>
+      <h1 id="htb--bountyhunter">HTB | BountyHunter</h1>
+
+<h3 id="enumeration">Enumeration</h3>
+<p>As with most, if not all htb machines, we add bountyhunter.htb to the hosts file on the attacking machine.</p>
+
+<p><img src="screenshots/hosts-file.png" alt="Step 0" title="Setup hosts file" /></p>
+
+<p>Initial scan with nmap shows ports 22 and 80 are open.</p>
+
+<p><code class="language-plaintext highlighter-rouge">nmap -Pn -p- -vv -sV -A -oA all-ports bountyhunter.htb</code></p>
+
+<p><img src="screenshots/nmap-scan.png" alt="Step 1" title="Nmap Scan" /></p>
+
+<p>Checking out port 80 shows us a Bounty Hunters splash page.</p>
+
+<p><img src="screenshots/main-site.png" alt="Step 2" title="Main Site" /></p>
+
+<p>Head towards the portal link which leads to a page that accepts users input.</p>
+
+<p><img src="screenshots/vulnerable-page.png" alt="Step 3" title="Ticket System" /></p>
+
+<p>Place some test data in the title and checkout the request being sent.</p>
+
+<p><img src="screenshots/request.png" alt="Step 4" title="Ticket System Request" /></p>
+
+<p>An attacker can see that the data being passed to the server is base64 encoded.
+Also notice the request is being sent to a page titled dirb-blahblah.
+That’s a powerful hint.
+Bring out a scanner.</p>
+
+<p>PERSONAL NOTE: I use a modified wordlist when I use dirb.
+Using dirb may or may not find all necessary files.</p>
+
+<p>While scanning, decode the data payload being sent to the victim.</p>
+
+<p><code class="language-plaintext highlighter-rouge">echo -n 'biglongpayload==' | base64 --decode</code></p>
+
+<p><img src="screenshots/decoded-payload.png" alt="Step 5" title="Decoded Payload" /></p>
+
+<p>Researching XML style attacks leads to XXE Injections.
+An extensive list of things to try are located <a href="https://github.com/payloadbox/xxe-injection-payload-list" title="payloadbox">here</a>.
+Using one of the techniques listed there, an attacker is able to grab files off the victim.
+They craft a special XML payload, encrypt it (base64 encoded, then url encoded), and send it to the victim server.
+Here’s an example.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0"?&gt;
+        &lt;!DOCTYPE foo [
+        &lt;!ENTITY ac SYSTEM "php://filter/read=convert.base64-encode/resource=WhatEverFile.txt"&gt;]&gt;
+        &lt;bugreport&gt;
+        &lt;title&gt;&amp;ac;&lt;/title&gt;
+        &lt;/bugreport&gt;
+</code></pre></div></div>
+<p>PERSONAL NOTE: I crafted a tool (log_submitter.py) that allowed me to quickly pick and pull specific files needed.</p>
+
+<p><img src="screenshots/dirb-scan.png" alt="Step 6" title="Dirb Scan" /></p>
+
+<p>From dirb, an attacker can see <code class="language-plaintext highlighter-rouge">/resources/</code> and <code class="language-plaintext highlighter-rouge">/db.php</code>.
+Directory <code class="language-plaintext highlighter-rouge">/resources/</code> shows the code of <code class="language-plaintext highlighter-rouge">log_submitter.php</code> and <code class="language-plaintext highlighter-rouge">/db.php</code> is a blank page.
+An attacker can use the new XXE injection to view the “blank” <code class="language-plaintext highlighter-rouge">/db.php</code>.
+A password is encoded with base64 in <code class="language-plaintext highlighter-rouge">db.php</code>.
+That password can be used in conjuction with the user name in <code class="language-plaintext highlighter-rouge">/etc/passwd</code> to get ssh access.</p>
+
+<h3 id="foothold--user-flag">Foothold / User Flag</h3>
+
+<p>The user flag is there for the tagging once an attacker gains ssh access.</p>
+
+<p><img src="screenshots/user-flag.png" alt="Step 7" title="User Flag" /></p>
+
+<h3 id="privilege-escalation">Privilege Escalation</h3>
+
+<p>Once a foothold is gained to a unix machine, it’s standard practice to check what sudo rights the user has.
+The user has the ability to run a program called ticketValidator.py as root.
+After taking a look at ticketValidator.py, it is clear that python function ` eval()` 
+is being fed input that an attacker has control over.</p>
+
+<p><img src="screenshots/sudo-list.png" alt="Step 8" title="List Sudo Access" /></p>
+
+<p>Create or modify a ticket with a payload and execute ticketValidator.py with sudo.
+Then grab the root flag.</p>
+
+<p><img src="screenshots/root.png" alt="Step 9" title="Root" /></p>
+
+    </div>
+    <script type="text/javascript" src="/WriteUps/assets/vendor/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/WriteUps/assets/vendor/prism.js"></script>
+<script type="text/javascript" src="/WriteUps/assets/js/custom.js"></script>
+
+  </body>
+</html>

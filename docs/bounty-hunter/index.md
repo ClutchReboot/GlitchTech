@@ -12,7 +12,7 @@ As with most, if not all htb machines, we add bountyhunter.htb to the hosts file
 
 Initial scan with nmap shows ports 22 and 80 are open.
 
-` nmap -Pn -p- -vv -sV -A -oA all-ports bountyhunter.htb`
+`nmap -Pn -p- -vv -sV -A -oA all-ports bountyhunter.htb`
 
 ![Step 1](screenshots/nmap-scan.png "Nmap Scan")
 
@@ -38,7 +38,7 @@ Using dirb may or may not find all necessary files.
 
 While scanning, decode the data payload being sent to the victim.
 
-` echo -n 'biglongpayload==' | base64 --decode`
+`echo -n 'biglongpayload==' | base64 --decode`
 
 ![Step 5](screenshots/decoded-payload.png "Decoded Payload")
 
