@@ -41,11 +41,7 @@ class MetasploitModule < Msf::Exploit::Remote
           ]
         ],
         'DisclosureDate' => '2023-11-04',
-        # Note that DefaultTarget refers to the index of an item in Targets, rather than name.
-        # It's generally easiest just to put the default at the beginning of the list and skip this
-        # entirely.
         'DefaultTarget' => 0,
-        # https://docs.metasploit.com/docs/development/developing-modules/module-metadata/definition-of-module-reliability-side-effects-and-stability.html
         'Notes' => {
           'Stability' => [],
           'Reliability' => [],
