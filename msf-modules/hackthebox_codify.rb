@@ -21,7 +21,8 @@ class MetasploitModule < Msf::Exploit::Remote
         'License' => MSF_LICENSE,
         'Author' => ['ClutchReboot'],
         'References' => [
-          [ 'URL', 'https://www.hackthebox.com/machines/codify']
+          [ 'URL', 'https://www.hackthebox.com/machines/codify'],
+          [ 'Vulnerability', 'https://github.com/patriksimek/vm2/security/advisories/GHSA-ch3r-j5x3-6q2m' ]
         ],
         'Payload' => {
           'BadChars' => "\x00"
