@@ -43,3 +43,9 @@ Sqlite also supports the `LIKE` operator to do partial searches.
 ```bash
 sqlite> .index %es
 ```
+
+## SQL
+After you'ved descovered basic information about the target, use standard SQL queries.
+```sql
+SELECT * FROM phpbb_acl_groups WHERE group_id == 0;
+```
