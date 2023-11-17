@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Sqlite3
+title: {{ site.data.main.name }} | Sqlite3
 ---
 
-# Tools | {{ title }}
+# Tools | Sqlite3
 Sqllite3 is full of easy show commands.
 The purpose of this document is to track some of them with examples.
 Most of these commands can be left blank to provide all information in the database.
@@ -13,6 +13,7 @@ List names of tables matching LIKE pattern TABLE.
 ```bash
 sqlite> .tables
 ```
+
 ## Schema
 Using the `.schema TABLE` command can be useful in finding information on tables.
 If you leave it blank, you'll get to see all sorts of information to better tailor your search.
@@ -41,12 +42,4 @@ idx_phpbb_acl_groups_auth_role_id
 Sqlite also supports the `LIKE` operator to do partial searches.
 ```bash
 sqlite> .index %es
-```
-
-
-# Show
-```bash
-.database
-.schema users
-SELECT username,password from users;
 ```
