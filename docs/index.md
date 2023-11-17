@@ -1,13 +1,14 @@
 ---
 layout: default
-title: WriteUps
+title: GlitchTech
 description: Collection of write ups written by Clutch Reboot.
 ---
 
-Welcome to WriteUps by ClutchReboot.
+Welcome to GlitchTech by ClutchReboot.
 
 There currently a couple [Hackthebox](https://hackthebox.com/) write ups.
 As more content is cleared, more write ups will be released.
+Other custom Metasploit modules and scripts may be located in the GitHub repo. Be sure to check it out.
 
 For more frequent updates, feel free to follow on the fediverse.
 
