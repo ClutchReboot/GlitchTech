@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Hackthebox | Optimum
+title: GlitchTech | Optimum
 description: Collection of write ups for Hackthebox.
 ---
-# HTB | Optimum
+# Hackthebox | Optimum
 ### Enumeration
 Optimum is part of the Pwn With Metasploit track. 
 So I will attempt to utilize Metasploit as much as possible.

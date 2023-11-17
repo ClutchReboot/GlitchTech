@@ -1,6 +1,6 @@
 ---
 layout: default
-title: {{ site.data.main.name }} | Sqlite3
+title: GlitchTech | Sqlite3
 ---
 
 # Tools | Sqlite3
