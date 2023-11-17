@@ -7,9 +7,19 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav">
         <li class="nav-item dropdown" data-bs-theme="light">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="themes">Tools</a>
+          <div class="dropdown-menu" aria-labelledby="themes">
+            {% for item in site.data.nav-tools %}
+              <a class="dropdown-item" href="/GlitchTech/Tools{{ item.link }}" >
+                {{ item.name }}
+              </a>
+            {% endfor %}
+          </div>
+        </li>
+        <li class="nav-item dropdown" data-bs-theme="light">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="themes">Hackthebox</a>
           <div class="dropdown-menu" aria-labelledby="themes">
-            {% for item in site.data.htb-writeups %}
+            {% for item in site.data.nav-writeups %}
               <a class="dropdown-item" href="/GlitchTech/WriteUps{{ item.link }}" >
                 {{ item.name }}
               </a>
