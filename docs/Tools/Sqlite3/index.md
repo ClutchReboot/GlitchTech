@@ -45,7 +45,7 @@ sqlite> .index %es
 ```
 
 ## SQL
-After you'ved descovered basic information about the target, use standard SQL queries.
+After you'ved discovered basic information about the target, use standard SQL queries.
 ```sql
 SELECT * FROM phpbb_acl_groups WHERE group_id == 0;
 ```
