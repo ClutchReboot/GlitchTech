@@ -1,6 +1,7 @@
 ---
 layout: default
 title: GlitchTech | Sqlite3
+description: Collection of commonly used tools.
 ---
 
 # Tools | Sqlite3
