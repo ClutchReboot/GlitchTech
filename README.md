@@ -14,7 +14,7 @@ In the future, they will all be stored under `docs/` so they can be displayed on
 # GlitchTech - `docs/`
 [Back to top](#table-of-contents)
 
-This is an attempt at merging older and newer write ups into GitHub Pages.
+This is an attempt at merging older and newer write ups into [GitHub Pages](https://clutchreboot.github.io/GlitchTech/).
 The purpose of this repo is to centralize any write ups, scripts, and Metasploit modules that I have created for cyber security.
 Another purpose is to keep track of commonly used tools and examples of their usage.
 
