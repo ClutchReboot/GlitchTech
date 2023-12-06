@@ -6,7 +6,9 @@ description: Collection of write ups written by Clutch Reboot.
 
 Welcome to GlitchTech by ClutchReboot.
 
-There currently a couple [Hackthebox](https://hackthebox.com/) write ups.
+The purpose of this page it a trial run at GitHub Pages and a place to store write ups.
+
+There are currently a couple [Hackthebox](https://hackthebox.com/) write ups.
 As more content is cleared, more write ups will be released.
 Other custom Metasploit modules and scripts may be located in the GitHub repo. Be sure to check it out.
 
